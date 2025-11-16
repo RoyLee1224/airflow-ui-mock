@@ -1,6 +1,7 @@
 // src/Sidebar.tsx
-import { VStack, Box, Text } from '@chakra-ui/react';
+import { VStack, Box, Text, Image } from '@chakra-ui/react';
 import { MdHome, MdSettings, MdHelp } from 'react-icons/md';
+import logoImg from './assets/logo.png';
 
 const NavButton = ({ icon: Icon, label, active = false }: { icon: any; label: string; active?: boolean }) => {
   return (
@@ -41,6 +42,7 @@ function Sidebar() {
         {/* Airflow Logo */}
         <Box h="12" w="12" bg="blue.500" borderRadius="md" display="flex" alignItems="center" justifyContent="center">
           <Text color="white" fontWeight="bold" fontSize="xl">A</Text>
+          <Image src={logoImg} alt="Airflow Logo" w="100%" h="100%" objectFit="contain" />
         </Box>
 
         <NavButton icon={MdHome} label="Home" active={true} />

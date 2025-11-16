@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
-import { Dashboard } from './Dashboard';
+import App from '../../App';
 import { page } from 'vitest/browser';
 
 const renderWithProvider = (component: React.ReactElement) => {
@@ -17,8 +17,8 @@ describe('Dashboard', () => {
     cleanup();
   });
 
-  it('should render the Dashboard page', async () => {
-    renderWithProvider(<Dashboard />);
+  it('should render the full app with Dashboard page', async () => {
+    renderWithProvider(<App />);
 
     // Verify the page renders - check for Stats section
     const statsHeading = screen.getByText('Stats');
@@ -26,7 +26,7 @@ describe('Dashboard', () => {
   });
 
   it('should display Welcome heading', async () => {
-    renderWithProvider(<Dashboard />);
+    renderWithProvider(<App />);
 
     // Check for welcome heading - exact text is "Welcome"
     const heading = screen.getByText(/Welcome/i);
@@ -34,15 +34,15 @@ describe('Dashboard', () => {
   });
 
   it('should capture full page screenshot', async () => {
-    renderWithProvider(<Dashboard />);
+    renderWithProvider(<App />);
 
     // Wait for the page to be fully rendered
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
-    // Capture screenshot
+    // Capture screenshot of the full app
     const screenshot = await page.screenshot({
       fullPage: true,
-      path: 'screenshots/dashboard-full.png',
+      path: 'screenshots/airflow-dashboard-full.png',
     });
 
     expect(screenshot).toBeDefined();

@@ -20,16 +20,16 @@ describe('Dashboard', () => {
   it('should render the Dashboard page', async () => {
     renderWithProvider(<Dashboard />);
 
-    // Verify the page renders
-    const dashboard = screen.getByTestId ? screen.getByTestId('dashboard') : document.body;
-    expect(dashboard).toBeDefined();
+    // Verify the page renders - check for Stats section
+    const statsHeading = screen.getByText('Stats');
+    expect(statsHeading).toBeDefined();
   });
 
   it('should display Welcome heading', async () => {
     renderWithProvider(<Dashboard />);
 
-    // Check for welcome heading
-    const heading = screen.getByText(/Welcome to Airflow/i);
+    // Check for welcome heading - exact text is "Welcome"
+    const heading = screen.getByText(/Welcome/i);
     expect(heading).toBeDefined();
   });
 

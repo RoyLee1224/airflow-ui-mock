@@ -48,7 +48,15 @@ jobs:
         env:
           CI: true
 
-      - name: Upload screenshots
+      - name: Upload screenshots to Argos
+        if: always()
+        run: pnpm argos
+        env:
+          ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
+          ARGOS_PARALLEL: false
+          ARGOS_PARALLEL_TOTAL: 1
+
+      - name: Upload screenshots (backup)
         if: always()
         uses: actions/upload-artifact@v4
         with:

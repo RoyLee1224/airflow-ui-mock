@@ -1,103 +1,152 @@
 # Airflow UI Mock
 
-这是一个 Apache Airflow 主页的模拟项目，使用 React + TypeScript + Chakra UI 构建，并通过 Vitest Browser Mode 进行测试。
+A mock project of Apache Airflow's home page, built with React + TypeScript + Chakra UI, and tested using Vitest Browser Mode.
 
-## 功能特点
+## Features
 
-- ✨ 使用 React 19 和 TypeScript 构建
-- 🎨 使用 Chakra UI v3 作为 UI 组件库
-- 🧪 使用 Vitest Browser Mode 进行浏览器测试
-- 📸 自动化截图测试功能
-- 🚀 GitHub Actions 自动化测试工作流
+- ✨ Built with React 19 and TypeScript
+- 🎨 Chakra UI v3 as UI component library
+- 🧪 Browser testing with Vitest Browser Mode
+- 📸 Automated screenshot testing
+- 🚀 GitHub Actions automated testing workflow
+- 👁️ Visual regression testing with Argos CI
 
-## 项目结构
+## Project Structure
 
 ```
 airflow-ui-mock/
 ├── src/
 │   ├── components/
-│   │   ├── AirflowHomePage.tsx       # Airflow 主页组件
-│   │   └── AirflowHomePage.test.tsx  # 组件测试
+│   │   ├── AirflowHomePage.tsx       # Airflow home page component
+│   │   └── AirflowHomePage.test.tsx  # Component tests
+│   ├── pages/
+│   │   └── Dashboard/
+│   │       ├── Dashboard.tsx         # Dashboard page
+│   │       └── Dashboard.test.tsx    # Dashboard tests
 │   ├── test/
-│   │   └── setup.ts                  # 测试设置
-│   ├── App.tsx                       # 应用入口
-│   └── main.tsx                      # React 入口
-├── screenshots/                      # 测试截图输出目录
-├── .github/workflows/                # GitHub Actions 工作流
-└── vitest.config.ts                 # Vitest 配置
+│   │   └── setup.ts                  # Test setup
+│   ├── theme/
+│   │   └── airflowTheme.ts          # Airflow theme colors
+│   ├── App.tsx                       # Application entry
+│   ├── Sidebar.tsx                   # Navigation sidebar
+│   └── main.tsx                      # React entry
+├── screenshots/                      # Test screenshot output directory
+├── .github/workflows/                # GitHub Actions workflows
+├── vitest.config.ts                 # Vitest configuration
+└── argos.config.js                  # Argos CI configuration
 ```
 
-## 安装依赖
+## Installation
 
 ```bash
 pnpm install
 ```
 
-## 开发
+## Development
 
-启动开发服务器：
+Start the development server:
 
 ```bash
 pnpm dev
 ```
 
-访问 http://localhost:5173 查看应用。
+Visit http://localhost:5173 to view the application.
 
-## 测试
+## Testing
 
-### 运行所有测试
+### Run all tests
 
 ```bash
 pnpm test:run
 ```
 
-### 交互式测试
+### Interactive testing
 
 ```bash
 pnpm test
 ```
 
-### 使用 UI 界面测试
+### Testing with UI
 
 ```bash
 pnpm test:ui
 ```
 
-## 截图测试
+## Screenshot Testing
 
-项目包含以下截图测试：
+The project includes the following screenshot tests:
 
-1. **完整页面截图** - 捕获整个 Airflow 主页
-2. **Header 截图** - 仅捕获顶部导航栏
-3. **统计卡片截图** - 捕获 DAGs 统计信息
-4. **DAGs 表格截图** - 捕获 DAGs 列表表格
+1. **Full page screenshot** - Captures the entire Airflow dashboard
+2. **Header screenshot** - Captures only the top navigation bar
+3. **Statistics cards screenshot** - Captures DAGs statistics
+4. **DAGs table screenshot** - Captures the DAGs list table
 
-所有截图都保存在 `screenshots/` 目录中。
+All screenshots are saved in the `screenshots/` directory.
 
-## 构建
+### Visual Regression Testing with Argos
+
+This project integrates with [Argos CI](https://argos-ci.com) for automated visual regression testing:
+
+- Screenshots are automatically uploaded to Argos on every CI run
+- Visual diffs are displayed in Pull Requests
+- Baseline screenshots are maintained on the `main` branch
+- Review UI changes easily through Argos dashboard
+
+To upload screenshots manually:
+
+```bash
+pnpm argos
+```
+
+**Note**: The `screenshots/` directory is git-ignored. Argos stores screenshots on their servers and provides visual comparisons in PR comments.
+
+## Build
 
 ```bash
 pnpm build
 ```
 
-## 技术栈
+## Tech Stack
 
-- **框架**: React 19
-- **语言**: TypeScript
-- **UI 库**: Chakra UI v3
-- **构建工具**: Vite
-- **测试框架**: Vitest
-- **浏览器测试**: @vitest/browser-playwright
-- **包管理器**: pnpm
+- **Framework**: React 19
+- **Language**: TypeScript
+- **UI Library**: Chakra UI v3
+- **Build Tool**: Vite
+- **Testing Framework**: Vitest
+- **Browser Testing**: @vitest/browser-playwright
+- **Visual Testing**: Argos CI
+- **Package Manager**: pnpm
 
 ## CI/CD
 
-项目使用 GitHub Actions 进行自动化测试：
+The project uses GitHub Actions for automated testing:
 
-- 每次 push 到 `main` 分支或以 `claude/` 开头的分支时触发
-- 每次创建 Pull Request 时触发
-- 自动运行所有测试
-- 上传截图和测试结果作为 artifacts
+- Triggered on every push to `main` branch or branches starting with `claude/`
+- Triggered on every Pull Request
+- Automatically runs all tests
+- Uploads screenshots to Argos CI for visual comparison
+- Uploads screenshots and test results as artifacts
+
+### Workflow Steps
+
+1. Checkout code
+2. Setup Node.js and pnpm
+3. Install dependencies
+4. Install Playwright browsers
+5. Run Vitest browser tests
+6. Upload screenshots to Argos
+7. Upload artifacts (screenshots and test results)
+
+## Argos CI Setup
+
+To use Argos visual testing in your fork:
+
+1. Sign up at [https://app.argos-ci.com](https://app.argos-ci.com)
+2. Connect your GitHub repository
+3. Add `ARGOS_TOKEN` to your repository secrets
+4. Argos will automatically comment on PRs with visual diffs
+
+For detailed setup instructions, see [ARGOS_SETUP.md](./ARGOS_SETUP.md).
 
 ## License
 

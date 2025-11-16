@@ -40,7 +40,7 @@ function Sidebar() {
     >
       <VStack gap={2} align="center" w="100%">
         {/* Airflow Logo */}
-        <Box h="12" w="12" bg="blue.500" borderRadius="md" display="flex" alignItems="center" justifyContent="center">
+        <Box h="12" w="12" display="flex" alignItems="center" justifyContent="center">
           <Image src={logoImg} alt="Airflow Logo" w="100%" h="100%" objectFit="contain" />
         </Box>
 

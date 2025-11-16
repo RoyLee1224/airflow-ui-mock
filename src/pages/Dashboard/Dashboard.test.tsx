@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import App from '../../App';
 import { page } from 'vitest/browser';
@@ -33,10 +33,36 @@ describe('Dashboard', () => {
     expect(heading).toBeDefined();
   });
 
+  it('should render Airflow logo in Sidebar', async () => {
+    renderWithProvider(<App />);
+
+    // Wait for and verify the logo image appears
+    const logo = await waitFor(
+      () => {
+        const img = screen.getByAltText('Airflow Logo');
+        expect(img).toBeDefined();
+        return img;
+      },
+      { timeout: 10000 }
+    );
+
+    // Verify the image element exists
+    expect(logo).toBeTruthy();
+  });
+
   it('should capture full page screenshot', async () => {
     renderWithProvider(<App />);
 
-    // Wait for the page to be fully rendered
+    // Wait for the logo to appear
+    await waitFor(
+      () => {
+        const logo = screen.getByAltText('Airflow Logo');
+        expect(logo).toBeDefined();
+      },
+      { timeout: 10000 }
+    );
+
+    // Additional wait for any animations or lazy-loaded content
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Capture screenshot of the full app

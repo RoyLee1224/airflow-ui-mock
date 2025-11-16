@@ -22,7 +22,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9
 
       - name: Get pnpm store directory
         shell: bash
@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload screenshots to Argos
         if: always()
-        run: pnpm argos
+        run: pnpm exec argos upload ./screenshots
         env:
           ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
           ARGOS_PARALLEL: false

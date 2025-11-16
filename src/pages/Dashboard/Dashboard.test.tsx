@@ -33,10 +33,29 @@ describe('Dashboard', () => {
     expect(heading).toBeDefined();
   });
 
+  it('should render Airflow logo in Sidebar', async () => {
+    renderWithProvider(<App />);
+
+    // Wait for and verify the logo image loads
+    const logo = await page.waitForSelector('img[alt="Airflow Logo"]', { timeout: 10000 });
+    expect(logo).toBeDefined();
+
+    // Verify the image has loaded (naturalWidth > 0 means image loaded successfully)
+    const isLoaded = await page.evaluate(() => {
+      const img = document.querySelector('img[alt="Airflow Logo"]') as HTMLImageElement;
+      return img && img.complete && img.naturalWidth > 0;
+    });
+
+    expect(isLoaded).toBe(true);
+  });
+
   it('should capture full page screenshot', async () => {
     renderWithProvider(<App />);
 
-    // Wait for the page to be fully rendered
+    // Wait for images to load (especially the logo)
+    await page.waitForSelector('img[alt="Airflow Logo"]', { timeout: 10000 });
+
+    // Additional wait for any animations or lazy-loaded content
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Capture screenshot of the full app

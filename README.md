@@ -1,73 +1,104 @@
-# React + TypeScript + Vite
+# Airflow UI Mock
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这是一个 Apache Airflow 主页的模拟项目，使用 React + TypeScript + Chakra UI 构建，并通过 Vitest Browser Mode 进行测试。
 
-Currently, two official plugins are available:
+## 功能特点
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✨ 使用 React 19 和 TypeScript 构建
+- 🎨 使用 Chakra UI v3 作为 UI 组件库
+- 🧪 使用 Vitest Browser Mode 进行浏览器测试
+- 📸 自动化截图测试功能
+- 🚀 GitHub Actions 自动化测试工作流
 
-## React Compiler
+## 项目结构
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+airflow-ui-mock/
+├── src/
+│   ├── components/
+│   │   ├── AirflowHomePage.tsx       # Airflow 主页组件
+│   │   └── AirflowHomePage.test.tsx  # 组件测试
+│   ├── test/
+│   │   └── setup.ts                  # 测试设置
+│   ├── App.tsx                       # 应用入口
+│   └── main.tsx                      # React 入口
+├── screenshots/                      # 测试截图输出目录
+├── .github/workflows/                # GitHub Actions 工作流
+└── vitest.config.ts                 # Vitest 配置
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 安装依赖
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
 ```
+
+## 开发
+
+启动开发服务器：
+
+```bash
+pnpm dev
+```
+
+访问 http://localhost:5173 查看应用。
+
+## 测试
+
+### 运行所有测试
+
+```bash
+pnpm test:run
+```
+
+### 交互式测试
+
+```bash
+pnpm test
+```
+
+### 使用 UI 界面测试
+
+```bash
+pnpm test:ui
+```
+
+## 截图测试
+
+项目包含以下截图测试：
+
+1. **完整页面截图** - 捕获整个 Airflow 主页
+2. **Header 截图** - 仅捕获顶部导航栏
+3. **统计卡片截图** - 捕获 DAGs 统计信息
+4. **DAGs 表格截图** - 捕获 DAGs 列表表格
+
+所有截图都保存在 `screenshots/` 目录中。
+
+## 构建
+
+```bash
+pnpm build
+```
+
+## 技术栈
+
+- **框架**: React 19
+- **语言**: TypeScript
+- **UI 库**: Chakra UI v3
+- **构建工具**: Vite
+- **测试框架**: Vitest
+- **浏览器测试**: @vitest/browser-playwright
+- **包管理器**: pnpm
+
+## CI/CD
+
+项目使用 GitHub Actions 进行自动化测试：
+
+- 每次 push 到 `main` 分支或以 `claude/` 开头的分支时触发
+- 每次创建 Pull Request 时触发
+- 自动运行所有测试
+- 上传截图和测试结果作为 artifacts
+
+## License
+
+MIT

@@ -16,7 +16,7 @@ const HealthBadge = ({ name, status }: { name: string; status: "healthy" | "unhe
 
   return (
     <Box
-      borderRadius="md"
+      borderRadius="full"
       borderWidth={1}
       p={2}
       bg={isHealthy ? "green.50" : "red.50"}

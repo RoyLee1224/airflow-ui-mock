@@ -26,7 +26,7 @@ export const PoolSummary = ({ used, total }: PoolSummaryProps) => {
           <Box w={`${percentage}%`} h="100%" bg="blue.500" />
         </Box>
         <Text fontSize="xs" color="gray.500" mt={1}>
-          {percentage.toFixed(1)}% utilized
+          {/* {percentage.toFixed(1)}% utilized */}
         </Text>
       </Box>
     </Box>

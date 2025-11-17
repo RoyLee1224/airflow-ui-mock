@@ -66,9 +66,10 @@ describe('Dashboard', () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Capture screenshot of the full app
+    // Path is relative to the project root (where tests are run from)
     const screenshot = await page.screenshot({
       fullPage: true,
-      path: 'screenshots/airflow-dashboard-full.png',
+      path: '../../../screenshots/dashboard.png',
     });
 
     expect(screenshot).toBeDefined();

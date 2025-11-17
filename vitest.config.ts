@@ -26,5 +26,11 @@ export default defineConfig({
     },
     setupFiles: ['./src/test/setup.ts'],
     testTimeout: 30000,
+    resolveSnapshotPath: (testPath, snapExtension) => {
+      // Custom screenshot path resolver
+      // This ensures screenshots are saved to project root/screenshots
+      const fileName = testPath.split('/').pop()?.replace('.test.tsx', '') || 'test';
+      return `${process.cwd()}/screenshots/${fileName}${snapExtension}`;
+    },
   },
 })

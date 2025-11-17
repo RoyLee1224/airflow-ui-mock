@@ -23,10 +23,7 @@ const HealthBadge = ({ name, status }: { name: string; status: "healthy" | "unhe
       borderColor={isHealthy ? "green.200" : "red.200"}
     >
       <Text fontSize="xs" fontWeight="bold" color={isHealthy ? "green.700" : "red.700"}>
-        {name}
-      </Text>
-      <Text fontSize="xs" color={isHealthy ? "green.600" : "red.600"}>
-        {isHealthy ? "✓ Healthy" : "✗ Unhealthy"}
+        {isHealthy ? "✓ " : "✗ "}{name}
       </Text>
     </Box>
   );

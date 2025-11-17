@@ -48,13 +48,20 @@ jobs:
         env:
           CI: true
 
+      - name: Check screenshots directory
+        if: always()
+        run: |
+          echo "Listing screenshots directory:"
+          ls -la screenshots/ || echo "Screenshots directory not found"
+          echo "Finding all PNG files:"
+          find . -name "*.png" -type f || echo "No PNG files found"
+
       - name: Upload screenshots to Argos
         if: always()
-        run: pnpm exec argos upload ./screenshots
-        env:
-          ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
-          ARGOS_PARALLEL: false
-          ARGOS_PARALLEL_TOTAL: 1
+        uses: argos-ci/argos-action@v1
+        with:
+          token: ${{ secrets.ARGOS_TOKEN }}
+          uploadDir: screenshots
 
       - name: Upload screenshots (backup)
         if: always()
